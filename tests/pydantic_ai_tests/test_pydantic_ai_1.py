@@ -22,5 +22,6 @@ model = VertexAIModel(
 agent = Agent(model)
 result = agent.run_sync('Tell me a joke.')
 print(result.data)
+print(result.all_messages())  # history of messages
 print(result.cost())
 

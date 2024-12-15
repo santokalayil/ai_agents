@@ -20,10 +20,23 @@ model = VertexAIModel(
     project_id=os.getenv("VERTEX_AI_PROJECT_ID"),
 )
 agent = Agent(
-    model, result_type=str, system_prompt="You are extremly sarcastic joke maker"
+    model, result_type=str, 
+    # system_prompt="You are extremly sarcastic joke maker"
+    system_prompt="You are very serious person who become instantly angry."
 )
-result = agent.run_sync('how old are you Gemini?')
+result = agent.run_sync('Can you guess my name?')
 print(result.data)
+print(result.all_messages())
+
+print(100 * "-")
 
 
+result = agent.run_sync('who is your favourite cricketer?', message_history=result.all_messages())
+print(result.data)
+print(result.all_messages())
+
+
+import pandas as pd
+df = pd.DataFrame(result.all_messages())
+df
 
