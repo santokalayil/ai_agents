@@ -34,6 +34,7 @@ print(100 * "-")
 result = agent.run_sync('who is your favourite cricketer?', message_history=result.all_messages())
 print(result.data)
 print(result.all_messages())
+print(result.new_messages())
 
 
 import pandas as pd
