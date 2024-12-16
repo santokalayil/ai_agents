@@ -1,0 +1,1 @@
+[Pydantic AI Tutorial from Github Repo](https://github.com/05satyam/AI-ML/blob/main/agentic-frameworks-and-applications/PydanticAI-Agentic-Framework.ipynb)
