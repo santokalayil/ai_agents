@@ -21,7 +21,10 @@ class FileManagementTool(Tool):
     name: str
     type_of_action: Literal["create", "delete", "read"] = Field(..., description="Type of action to perform")
     type_of_item: Literal["folder", "file"] = Field(..., description="Type of item to perform action on")
-    parent_folder_path: Path = Field(..., description="Parent folder path")
+    parent_folder_path: Path = Field(..., description="Parent folder path. Make sure to provide the full path. Path of working directory is provided in the context. ")  # Parent folder path should be either working the directory or a subdirectory of the working directory.
+    
+    # Static value for the parent (root) directory
+    # pwd: Path = Path("/Users/santokalayil/Developer/projeGENTS/simple_projects/filemanager/temp")
     
     def __call__(self) -> Any:
         if self.type_of_action == "create":
@@ -35,17 +38,17 @@ class FileManagementTool(Tool):
     
     def create(self):
         if self.type_of_item == "folder":
-            self.create_folder()
+            return self.create_folder()
         elif self.type_of_item == "file":
-            self.create_file()
+            return self.create_file()
         else:
             raise Exception("Unknown type of item")
     
     def delete(self):
         if self.type_of_item == "folder":
-            self.delete_folder()
+            return self.delete_folder()
         elif self.type_of_item == "file":
-            self.delete_file()
+            return self.delete_file()
         else:
             raise Exception("Unknown type of item")
     
@@ -60,35 +63,39 @@ class FileManagementTool(Tool):
     def create_folder(self):
         folder_path = self.parent_folder_path / self.name
         folder_path.mkdir(parents=True, exist_ok=True)
-        print(f"The folder with name `{self.name}` is created in the path {self.parent_folder_path}")
+        print(f"The folder with name `{self.name}` is created in the path {folder_path}")
+        return folder_path
     
     def create_file(self):
         file_path = self.parent_folder_path / self.name
         file_path.touch(exist_ok=True)
-        print(f"The file with name `{self.name}` is created in the path {self.parent_folder_path}")
+        print(f"The file with name `{self.name}` is created in the path {file_path}")
+        return file_path
     
     def delete_folder(self):
         folder_path = self.parent_folder_path / self.name
         if folder_path.is_dir():
             folder_path.rmdir()
-            print(f"The folder with name `{self.name}` is deleted from the path {self.parent_folder_path}")
+            print(f"The folder with name `{self.name}` is deleted from the path {folder_path}")
         else:
-            print(f"The folder with name `{self.name}` does not exist in the path {self.parent_folder_path}")
+            print(f"The folder with name `{self.name}` does not exist in the path {folder_path}")
+        return folder_path
     
     def delete_file(self):
         file_path = self.parent_folder_path / self.name
         if file_path.is_file():
             file_path.unlink()
-            print(f"The file with name `{self.name}` is deleted from the path {self.parent_folder_path}")
+            print(f"The file with name `{self.name}` is deleted from the path {file_path}")
         else:
-            print(f"The file with name `{self.name}` does not exist in the path {self.parent_folder_path}")
+            print(f"The file with name `{self.name}` does not exist in the path {file_path}")
+        return file_path
     
     def read_folder(self):
         folder_path = self.parent_folder_path / self.name
         if folder_path.is_dir():
             return list(folder_path.iterdir())
         else:
-            print(f"The folder with name `{self.name}` does not exist in the path {self.parent_folder_path}")
+            print(f"The folder with name `{self.name}` does not exist in the path {folder_path}")
             return []
     
     def read_file(self):
@@ -96,7 +103,7 @@ class FileManagementTool(Tool):
         if file_path.is_file():
             return file_path.read_text()
         else:
-            print(f"The file with name `{self.name}` does not exist in the path {self.parent_folder_path}")
+            print(f"The file with name `{self.name}` does not exist in the path {file_path}")
             return ""
     
     @property
@@ -139,4 +146,4 @@ class FileManagementTool(Tool):
     
 #     def __call__(self):
 #         raise Exception("Cannot call the tool since unknown type")
-       
+
