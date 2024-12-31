@@ -16,6 +16,12 @@ google-auth = "^2.37.0"
 requests = "^2.32.3"
 pandas = "^2.2.3"
 python-dotenv = "^1.0.1"
+instructor = "^1.7.0"
+google-cloud-aiplatform = "^1.75.0"
+jsonref = "^1.1.0"
+pypdf2 = "^3.0.1"
+google-generativeai = "^0.8.3"
+google-genai = "^0.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
