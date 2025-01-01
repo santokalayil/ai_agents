@@ -13,6 +13,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 nest_asyncio.apply()
 logging.basicConfig(level=logging.DEBUG)
 
+from pydantic import BaseModel, Field
 from pydantic_ai import Agent, RunContext, Tool, ModelRetry
 from pydantic_ai.result import RunResult
 from pydantic_ai.models.vertexai import VertexAIModel
@@ -26,7 +27,6 @@ model = VertexAIModel(
     project_id=os.getenv("VERTEX_AI_PROJECT_ID"),
 )
 
-from pydantic import BaseModel, Field
 class FileManagerDeps(BaseModel):  
     pwd: Path = Field(..., description="Path of the working directory. This is always the parent directory of the folders and files.")
 
