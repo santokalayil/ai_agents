@@ -201,7 +201,9 @@ class GeminiAgentModel(AgentModel):
             request_data['system_instruction'] = _GeminiTextContent(role='user', parts=sys_prompt_parts)
         if self.tools is not None:
             request_data['tools'] = self.tools
+            print("TOOLS >>>> ", self.tools)
         if self.tool_config is not None:
+            print("TOOL CONFIG >>>> ", self.tool_config)
             request_data['tool_config'] = self.tool_config
 
         generation_config: _GeminiGenerationConfig = {}
