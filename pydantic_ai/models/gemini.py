@@ -189,6 +189,7 @@ class GeminiAgentModel(AgentModel):
     ) -> AsyncIterator[HTTPResponse]:
         sys_prompt_parts: list[_GeminiTextPart] = []
         contents: list[_GeminiContent] = []
+        print("MESSAGES >>>> ", messages)
         for m in messages:
             if (sys_prompt := self._message_to_gemini_system_prompt(m)) is not None:
                 sys_prompt_parts.append(sys_prompt)
