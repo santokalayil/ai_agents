@@ -36,7 +36,7 @@ class PythonInterpreterDeps(BaseModel):
     local_vars: Dict[str, Any] = Field(..., description="Local variables to be used in the code")
 
 
-PythonInterpreterDeps().model_dump_json
+# PythonInterpreterDeps().model_dump_json
 
 system_prompt = (
     "You are a coding agent. Your task is to write python code for the given task. "
